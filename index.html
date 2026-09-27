@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Ridge Hour</title>
+  <meta name="description" content="A small public desk. Notes stay private unless you mark them otherwise. The hour turns on its own." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="top">
+    <a class="mark" href="#home" data-nav="home">
+      <span class="mark-dot"></span>
+      The Ridge Hour
+    </a>
+    <nav class="nav">
+      <button data-nav="home">Desk</button>
+      <button data-nav="board">Public board</button>
+      <button data-nav="mine" class="needs-auth hidden">My notes</button>
+      <button data-nav="write" class="needs-auth hidden">Write</button>
+    </nav>
+    <div class="auth-slot" id="authSlot"></div>
+  </header>
+
+  <main>
+    <section id="view-home" class="view">
+      <p class="kicker" id="hourKicker">This hour</p>
+      <h1 class="display" id="hourTitle">The lamp is still warm.</h1>
+      <p class="lede" id="hourBody">Every sixty minutes this page chooses a public note, or writes a short line of its own if the board is quiet.</p>
+      <article class="feature-card hidden" id="featureCard">
+        <p class="meta" id="featureMeta"></p>
+        <h2 id="featureTitle"></h2>
+        <div class="prose" id="featureBody"></div>
+      </article>
+      <p class="clock" id="clock"></p>
+    </section>
+
+    <section id="view-board" class="view hidden">
+      <h1>Public board</h1>
+      <p class="lede">Anything a reader marks public lands here. Private drafts never leave the desk.</p>
+      <div class="grid" id="board"></div>
+    </section>
+
+    <section id="view-mine" class="view hidden">
+      <h1>My notes</h1>
+      <div class="grid" id="mine"></div>
+    </section>
+
+    <section id="view-write" class="view hidden">
+      <h1>Write a note</h1>
+      <form id="writeForm" class="sheet">
+        <label>Title
+          <input name="title" maxlength="120" required placeholder="A working title" />
+        </label>
+        <label>Body
+          <textarea name="body" rows="10" required placeholder="What you actually meant to say."></textarea>
+        </label>
+        <label class="check">
+          <input type="checkbox" name="is_public" />
+          Mark public — it can appear on the board and may be featured on the hour
+        </label>
+        <button type="submit" class="btn">Save note</button>
+        <p class="form-msg" id="writeMsg"></p>
+      </form>
+    </section>
+
+    <section id="view-auth" class="view hidden">
+      <h1 id="authHeading">Sign in</h1>
+      <p class="lede">Email and password. Your notes stay on this desk unless you publish them.</p>
+      <form id="authForm" class="sheet">
+        <label>Email
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <label>Password
+          <input type="password" name="password" required minlength="8" autocomplete="current-password" />
+        </label>
+        <div class="row">
+          <button type="submit" class="btn" data-mode="signin">Sign in</button>
+          <button type="button" class="btn ghost" id="signupBtn">Create account</button>
+        </div>
+        <p class="form-msg" id="authMsg"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>The Ridge Hour turns itself. No newsletter. No feed you did not ask for.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
